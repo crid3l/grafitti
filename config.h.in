@@ -1,0 +1,10 @@
+//
+// Created by kp2 on 2/20/24.
+//
+
+#ifndef KDE_GRAFFITI_CONFIG_H
+#define KDE_GRAFFITI_CONFIG_H
+
+#define APP_NAME "@APP_NAME@"
+
+#endif //KDE_GRAFFITI_CONFIG_H
