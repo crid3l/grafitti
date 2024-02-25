@@ -17,6 +17,8 @@
 #include <unistd.h>
 #include <fstream>
 #include <iostream>
+
+namespace fs = std::filesystem;
 /**
  * Create the App Directory if it doesn't exist
  * @return st
@@ -28,7 +30,7 @@ std::string createAppDirectory();
  * The daemon will be watching this file
  * @param directoryPath
  */
-void initDirectory(const std::string& directoryPath);
+void initConfigDirectory(const std::string& directoryPath);
 
 /**
  * Runner function to guide initialization
@@ -45,10 +47,10 @@ std::string createAppDirectory() {
         str = getpwuid(getuid())->pw_dir;
     }
     str.append("/.config/").append(APP_NAME);
-    if(!std::filesystem::exists(str)) {
-        std::filesystem::create_directories(str);
+    if(!fs::exists(str)) {
+        fs::create_directories(str);
     }
-    initDirectory(str);
+    initConfigDirectory(str);
     return str;
 }
 
@@ -61,7 +63,7 @@ void initConfigDirectory(const std::string& directoryPath) {
     std::string configPath = directoryPath + "/" + "config.ini";
 
     // breakout if already initialized.
-    if(std::filesystem::exists(configPath)) {
+    if(fs::exists(configPath)) {
         return;
     }
 
@@ -74,7 +76,7 @@ void initConfigDirectory(const std::string& directoryPath) {
  */
 void setupFirstTime() {
     std::string appDirectory = createAppDirectory();
-    initDirectory(appDirectory);
+    initConfigDirectory(appDirectory);
 }
 
 #endif //KDE_GRAFFITI_SETUP_H

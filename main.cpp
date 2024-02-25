@@ -11,6 +11,7 @@
 #include "config.h"
 #include "mini/ini.h"
 #include "setup.h"
+#include <locale>
 
 
 namespace fs = std::filesystem;
@@ -39,6 +40,13 @@ int main(int argc, char **argv) {
         baseCommand = "-daemon";
     } else {
         baseCommand = argv[1];
+    }
+
+    {
+        std::locale loc;
+        for (char & i : baseCommand) {
+            i = std::tolower(i, loc);
+        }
     }
 
     setupFirstTime();
